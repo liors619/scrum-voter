@@ -3,20 +3,13 @@
     border-radius: 0.2rem;
     border: 1px solid darkgrey;
 
+    display: none;
 }
 
-#room-choose-from{
+#room-choose-form{
     display: flex;
     flex-flow: column;
     justify-content: center;
-}
-
-#member-name-input{
-
-}
-
-#team-name-input{
-    
 }
 
 #join-team-btn{
@@ -30,3 +23,6 @@
     margin-top: 3%;
 }
 
+.form-label {
+    margin-bottom: 0.2rem;
+}
