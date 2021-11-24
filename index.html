@@ -17,7 +17,7 @@
 				</label>
 		</div>
 		<div id="room-choose-div">
-			<form id="room-choose-from">
+			<form id="room-choose-form">
 				<div class="mb-3">
 					<label for="team-name-input" class="form-label">Team Name:</label>
 					<input type="text" class="form-control" id="team-name-input">
@@ -27,15 +27,49 @@
 					<label for="member-name-input" class="form-label">Member Name:</label>
 					<input type="text" class="form-control" id="member-name-input">
 				</div>
-
-  				<button type="submit" class="btn btn-primary" id="join-team-btn">Join team</button>
-  				<button type="submit" id="create-team-btn">-Create team-</button>
+  					<button type="submit" class="btn btn-primary" id="join-team-btn">Join team</button>
+  					<button type="submit" id="create-team-btn">-Create team-</button>
 			</form>
 		</div>
+		<div id="room-div">
+			<div id="room-title-div">
+				<h1 id="room-title">Trace Room</h1>
+			</div>
+			<div id="online-users-div">
+				<h2 id="online-users-title">Online Users</h2>
+				<ul id="online-users-list">
+					<li class="user-il">User1</li>
+					<li class="user-il">User2</li>
+					<li class="user-il">User3</li>
+					<li class="user-il">User4</li>
+					<li class="user-il">User5</li>
+				</ul>
+			</div>
+
+			<div class="room-options">
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="anonymous-vote-checkbox">
+					<label class="form-check-label" for="anonymous-vote-checkbox">
+						Anonymous vote
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" id="voter-checkbox">
+					<label class="form-check-label" for="voter-checkbox">
+						You are a voter
+					</label>
+				</div>
+			</div>
+			<div id="copy-page-link-button">
+				<button type="button" class="btn btn-primary" id="copy-room-link-btn">Copy room link</button>
+			</div>
+		</div>
 	</div>
+	<!--
 	<div id="circle1" class="circle"></div>
 	<div id="circle2" class="circle"></div>
 	<div id="circle3" class="circle"></div>
+	-->
 <script>
 function myFunction() {
    document.body.classList.toggle("dark");
