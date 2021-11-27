@@ -1,0 +1,26 @@
+#room-title {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    background-color: #000;
+    height: 2em;
+    line-height: 2em;
+    overflow: hidden;
+}
+
+.icon-button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    color: dimgray;
+}
+
+#room-title-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

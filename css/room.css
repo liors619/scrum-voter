@@ -1,10 +1,6 @@
 #room-div{
-    width: 40%;
+    width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
 }
 
 #online-users-list {
@@ -16,29 +12,40 @@
     overflow: auto;
 }
 
-#room-title {
-    margin: 0;
-    padding: 0;
-    font-size: 1.5em;
-    font-weight: bold;
-    text-align: center;
-    color: #fff;
-    background-color: #000;
-    height: 2em;
-    line-height: 2em;
-    overflow: hidden;
-}
-
-.form-check-label{
-    margin-top: 0.25em;
-    margin-left: .1%;
-}
-
-#copy-room-link-btn{
-    margin-top: 0.25em;
-    margin-left: .1%;
-}
-
 .user-il {
     margin-left: 3%;
 }
+
+#vote-answers-div {
+    margin-top: 1%;
+    width: 50%;
+    display: flex;
+}
+
+.vote-option-button {
+    width: 11%;
+    aspect-ratio: 1;
+    color: dimgray;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+
+    font-size: 1.5em;
+    padding: 0;
+    margin-left: 1%;
+
+    color: rgba(100, 100, 100, 0.7);
+    background-color: rgba(255, 255, 255, 0.4);
+    border: rgba(128, 128, 128, 0.4) solid 1px;
+}
+
+#vote-answers-div button:first-of-type {
+    margin-left: 0;
+}
+
+
+
+
+
+
+

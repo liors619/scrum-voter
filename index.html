@@ -34,6 +34,9 @@
 		<div id="room-div">
 			<div id="room-title-div">
 				<h1 id="room-title">Trace Room</h1>
+				<button class ="icon-button">
+					<i class="fas fa-copy"></i>
+				</button>
 			</div>
 			<div id="online-users-div">
 				<h2 id="online-users-title">Online Users</h2>
@@ -45,8 +48,7 @@
 					<li class="user-il">User5</li>
 				</ul>
 			</div>
-
-			<div class="room-options">
+			<div id="room-options-div">
 				<div class="form-check">
 					<input class="form-check-input" type="checkbox" id="anonymous-vote-checkbox">
 					<label class="form-check-label" for="anonymous-vote-checkbox">
@@ -59,22 +61,27 @@
 						You are a voter
 					</label>
 				</div>
+				<button type="button" class="btn btn-primary" id="new-vote-button">New Vote</button>
 			</div>
-			<div id="copy-page-link-button">
-				<button type="button" class="btn btn-primary" id="copy-room-link-btn">Copy room link</button>
+
+			<div id="vote-answers-div">
+				<button type="button" class="btn btn-primary vote-option-button">XS</button>
+				<button type="button" class="btn btn-primary vote-option-button">S</button>
+				<button type="button" class="btn btn-primary vote-option-button">M</button>
+				<button type="button" class="btn btn-primary vote-option-button">L</button>
+				<button type="button" class="btn btn-primary vote-option-button">XL</button>
 			</div>
+
+
 		</div>
 	</div>
-	<!--
-	<div id="circle1" class="circle"></div>
-	<div id="circle2" class="circle"></div>
-	<div id="circle3" class="circle"></div>
-	-->
-<script>
-function myFunction() {
-   document.body.classList.toggle("dark");
-}
-</script>
+
+	<script>
+	function myFunction() {
+	   document.body.classList.toggle("dark");
+	}
+	</script>
+	<script src="https://kit.fontawesome.com/c612638b49.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
