@@ -29,9 +29,9 @@ chooseRoomForm.addEventListener("submit",(ev)=>{
     socket.emit(eventName, eventValue);
 });
 
-socket.on("room-created", (room) => {
+socket.on("room-created", (roomName, username) => {
     console.log("room created");
-    window.location.href = "/room.html?roomName=" + room.id + "&userName=" + room.Users[0].name;
+    window.location.href = "/room.html?roomName=" + roomName + "&userName=" + username;
 });
 
 socket.on("room-already-exists", (errorMsg) => {
@@ -46,9 +46,9 @@ socket.on("room-not-found", (errorMsg) => {
     console.log("room not found");
 });
 
-socket.on("room-joined", (room) => {
+socket.on("room-joined", (roomName, username) => {
     console.log("room joined");
-    window.location.href = "/room.html?roomName=" + room.id + "&userName=" + room.Users[0].name;
+    window.location.href = "/room.html?roomName=" + roomName + "&userName=" + username;
 });
 
 socket.on("user-already-in-room", (errorMsg) => {

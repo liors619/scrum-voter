@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
             console.log("A user with the same username is already in the room");
           }
           else {
-            socket.emit('room-joined', res);
+            socket.emit('room-joined', roomName, userName);
             console.log("user " + userName + " joined room " + roomName);
           }
         }
@@ -66,7 +66,7 @@ io.on('connection', (socket) => {
           lastJoinTime: new Date()});
         newRoom.save();
         socket.join(roomName);
-        socket.emit('room-created', newRoom);
+        socket.emit('room-created', roomName, userName);
         console.log("room " + roomName + " created");
       }
       else {
