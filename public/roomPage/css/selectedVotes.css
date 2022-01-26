@@ -1,0 +1,28 @@
+#votes-recieved-div {
+    margin-top: 1%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    flex-direction: row;
+}
+
+
+
+.single-vote-div {
+    width: 11%;
+    aspect-ratio: 0.75;
+    font-weight: bold;
+    text-align: center;
+
+    font-size: 1.5em;
+    padding: 0;
+    margin-left: 1%;
+
+    border-radius: 5px;
+    border: lightgray; solid 1px;
+    background: dimgray;
+
+}
+

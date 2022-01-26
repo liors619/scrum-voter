@@ -1,0 +1,13 @@
+.form-check-label{
+    margin-top: 0.25em;
+    margin-left: .1%;
+}
+#room-options-div{
+    margin-top: 5%;
+    min-width: max-content;
+    max-width: 15%;
+}
+
+#new-vote-button{
+    width: 100%;
+}
