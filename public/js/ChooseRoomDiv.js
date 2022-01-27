@@ -6,56 +6,67 @@ userNameInput = chooseRoomForm[1];
 userNameInputFeedback = document.getElementById("user-name-input-feedback");
 roomNameInputFeedback = document.getElementById("room-name-input-feedback");
 
-
 roomNameInput.addEventListener('input', RemoveFormIsInvalidClass);
 userNameInput.addEventListener('input', ev => RemoveIsInvalidClass(ev.target));
 
 chooseRoomForm.addEventListener("submit",(ev)=>{
     ev.preventDefault();
     
-    const eventValue = 
-    { 
-        "roomName" : roomNameInput.value,
-        "userName" : userNameInput.value
-    }  
+    const roomName = roomNameInput.value;
+    const username = userNameInput.value;
     
     const submitterBtnName = ev.submitter.name;
-    let eventName = ""
     if (submitterBtnName == "join-room-btn")
-        eventName = "join-room"
+        SubmitJoinRoomRequest(roomName, username);
     else if (submitterBtnName == "create-room-btn")
-        eventName = "create-room"
-
-    socket.emit(eventName, eventValue);
+        SubmitCreateRoomRequest(roomName, username);
 });
 
-socket.on("room-created", (roomName, username) => {
-    console.log("room created");
-    window.location.href = "/room.html?roomName=" + roomName + "&userName=" + username;
-});
+function SubmitJoinRoomRequest(roomName, userName){
+    RemoveFormIsInvalidClass();
+    fetch("/api/joinRoom?roomName=" + roomName + "&userName=" + userName, {method: "POST"})
+    .then(response => {
+        const status = response.status;
+        console.log(response);
 
-socket.on("room-already-exists", (errorMsg) => {
-    roomNameInputFeedback.innerHTML = errorMsg;
-    roomNameInput.classList.add("is-invalid");
-    console.log("room already exists");
-});
+        if (status == 200){
+            window.location.href = "/Room?roomName=" + roomName + "&userName=" + userName;
+        }
+        else {
+            response.json().then(data => {
+                const errorMsg = data.errorMsg;
+                if (status == 404){
+                    roomNameInputFeedback.innerHTML = errorMsg;
+                    roomNameInput.classList.add("is-invalid");
+                }
+                else if (status == 400) {
+                    userNameInputFeedback.innerHTML = errorMsg;
+                    userNameInput.classList.add("is-invalid");
+                }
+            });
+        }
+    });
+}
 
-socket.on("room-not-found", (errorMsg) => {
-    roomNameInputFeedback.innerHTML = errorMsg;
-    roomNameInput.classList.add("is-invalid");
-    console.log("room not found");
-});
+function SubmitCreateRoomRequest(roomName, userName){
+    RemoveFormIsInvalidClass();
+    fetch("/api/createRoom?roomName=" + roomName + "&userName=" + userName, {method: "POST"})
+    .then(response => {
+        const status = response.status;
 
-socket.on("room-joined", (roomName, username) => {
-    console.log("room joined");
-    window.location.href = "/room.html?roomName=" + roomName + "&userName=" + username;
-});
-
-socket.on("user-already-in-room", (errorMsg) => {
-    userNameInputFeedback.innerHTML = errorMsg;
-    userNameInput.classList.add("is-invalid");
-    console.log("user already in room");
-});
+        if (status == 200){
+            window.location.href = "/Room?roomName=" + roomName + "&userName=" + userName;
+        }
+        else {
+            response.json().then(data => {
+                const errorMsg = data.errorMsg;
+                roomNameInputFeedback.innerHTML = errorMsg;
+                roomNameInput.classList.add("is-invalid");
+                console.log("room not found");
+            });
+        }
+    });
+}
 
 function ResetFormValue(form){
     form[0].value = "";

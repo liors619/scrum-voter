@@ -5,7 +5,7 @@ const RoomSchema = new mongoose.Schema({
     id: String,
     lastJoinTime: Date,
     Users: [{name: String, isVoter: Boolean}],
-    Votes: [{UserName: String, Vote: String}]
+    Votes: [{UserName: String, Vote: String, voteAnonymously: Boolean}]
 });
 
 const Room = mongoose.model('Room', RoomSchema);

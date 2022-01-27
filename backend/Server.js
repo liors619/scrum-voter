@@ -10,23 +10,82 @@ const publicFolderPath = Path.join(__dirname, '../public')
 const mongoose = require('mongoose');
 const RoomModel = require("./RoomMongoSchema.js");
 mongoose.connect("mongodb://localhost:27017/ScrumVoterDb", { useNewUrlParser: true});
-ClearDb() 
+ClearDb()
+new RoomModel({
+  id: "Trace", 
+  lastJoinTime: new Date()}).save();
+
 RoomModel.find({}).then(res => {console.log(res)});
 console.log("connected to DB.");
 
 app.use("/", express.static(publicFolderPath, {index: false}));
 app.get('/', (_req, res) => {
+    console.log("s");
     res.sendFile(Path.join(publicFolderPath, 'index.html'));
 });
 
-app.get('/room.html', (_req, res) => {
+app.get('/Room', (_req, res) => {
+  console.log("s");
   res.sendFile(Path.join(publicFolderPath, 'roomPage.html'));
+});
+
+
+
+app.post('/api/createRoom', (req, res) => {
+  const roomName = req.query.roomName;
+  const userName = req.query.userName;
+
+  console.log("create room submitted");
+  RoomModel.findOne({id: roomName}, (_error,mongoRes) => {
+    if (mongoRes == null) {
+      var newRoom = new RoomModel({
+        id: roomName, 
+        lastJoinTime: new Date(),
+        Users: [{ name: userName, isVoter: true }]});
+      newRoom.save();
+      console.log("room " + roomName + " created");
+      res.send();
+    }
+    else {
+      console.log("room " + roomName + " already exists");
+      res.status(400).send(JSON.stringify({errorMsg: "room with this name is already exists."}));
+    }
+  console.log();
+  });
+});
+
+
+app.post('/api/joinRoom', (req, res) => {
+  const roomName = req.query.roomName;
+  const userName = req.query.userName;
+  console.log("join room submitted");
+  RoomModel.findOne({id: roomName}, (_error,dbRes) => {
+    if (dbRes == null) {
+      console.log("room " + roomName + " was not found");
+      res.status(404).send(JSON.stringify({errorMsg: "room with this name is not exists."}));
+    }
+    else {
+      console.log(dbRes.Users);
+      if (dbRes.Users.map(x => x.name).includes(userName)) {
+        console.log("A user with the same username is already in the room");
+        res.status(400).send(JSON.stringify({errorMsg: "user with this name is already in the room."}));
+      }
+      else {
+        console.log("user " + userName + " joined room " + roomName);
+        dbRes.Users.push({ name:userName, isVoter:true });
+        dbRes.save();
+        res.send();
+      }
+    }
+    console.log();
+  });
 });
 
 server.listen(3000, () => {
   console.log('listening on *:3000');
 });
 
+/*
 io.on('connection', (socket) => {
   console.log('a user connected');
   console.log();
@@ -65,7 +124,6 @@ io.on('connection', (socket) => {
           id: roomName, 
           lastJoinTime: new Date()});
         newRoom.save();
-        socket.join(roomName);
         socket.emit('room-created', roomName, userName);
         console.log("room " + roomName + " created");
       }
@@ -78,7 +136,25 @@ io.on('connection', (socket) => {
     });
     
   });
+
+  socket.on('user-joined-to-room', (userName, roomName) => {
+    console.log(userName + " joined the room " + roomName);
+
+    RoomModel.findOne({id: roomName}, (_error,res) => {
+      if (res != null) {
+        res.Users.push({ name:userName, isVoter:true });
+        res.save();
+      }
+      else {
+        console.log("room not found");
+      }
+
+      console.log(res.Users);
+      console.log();
+    });
+  });
 });
+*/
 
 function ClearDb(){
     RoomModel.deleteMany({}).exec();
