@@ -1,8 +1,14 @@
-socket = io();
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+const urlRoomName = urlParams.get('roomName');
 
 chooseRoomForm = document.getElementById("room-choose-form");
 roomNameInput = chooseRoomForm[0];
 userNameInput = chooseRoomForm[1];
+
+roomNameInput.value = urlRoomName;
+
 userNameInputFeedback = document.getElementById("user-name-input-feedback");
 roomNameInputFeedback = document.getElementById("room-name-input-feedback");
 
